@@ -1,0 +1,117 @@
+RPSTool.m
+function rockButton_Callback(hObject, eventdata, handles)
+% hObject    handle to rockButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+processRPSF(handles,1);
+% --- Executes on button press in paperButton.
+function paperButton_Callback(hObject, eventdata, handles)
+% hObject    handle to paperButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+processRPSF(handles,2);
+% --- Executes on button press in scissorsButton.
+function scissorsButton_Callback(hObject, eventdata, handles)
+% hObject    handle to scissorsButton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+processRPSF(handles,3);
+function reset_Callback(hObject, eventdata, handles)
+% hObject    handle to reset (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+set(handles.humanWins,'String','0');
+set(handles.compWins,'String','0');
+set(handles.ties,'String','0');
+
+processRPSF.m
+function processRPSF(handles, iHumanPlay)
+h=iHumanPlay;
+c=randi(3);
+if(c==1)
+    set(handles.compChoice,'String','rock');
+elseif(c==2)
+    set(handles.compChoice,'String','paper');
+elseif(c==3)
+    set(handles.compChoice,'String','scissors');
+end
+gameResult='';
+cWon=get(handles.compWins,'String');
+hWon=get(handles.humanWins,'String');
+tie=get(handles.ties,'String');
+if(h==1&&c==1)
+    gameResult='tie';
+    tie=str2num(tie);
+    tie=tie+1;
+    tie=num2str(tie);
+    set(handles.ties,'String',tie)
+elseif(h==1&&c==2)
+    gameResult='computer won';
+    cWon=str2num(cWon);
+    cWon=cWon+1;
+    cWon=num2str(cWon);
+    set(handles.compWins,'String',cWon);
+elseif(h==1&&c==3)
+    gameResult='human won';
+    hWon=str2num(hWon);
+    hWon=hWon+1;
+    hWon=num2str(hWon);
+    set(handles.humanWins,'String',hWon);
+elseif(h==2&&c==1)
+    gameResult='human won';
+    hWon=str2num(hWon);
+    hWon=hWon+1;
+    hWon=num2str(hWon);
+    set(handles.humanWins,'String',hWon);
+elseif(h==2&&c==2)
+    gameResult='tie';
+    tie=str2num(tie);
+    tie=tie+1;
+    tie=num2str(tie);
+    set(handles.ties,'String',tie);
+elseif(h==2&&c==3)
+    gameResult='computer won';
+    cWon=str2num(cWon);
+    cWon=cWon+1;
+    cWon=num2str(cWon);
+    set(handles.compWins,'String',cWon);
+elseif(h==3&&c==1)
+    gameResult='computer won';
+    cWon=str2num(cWon);
+    cWon=cWon+1;
+    cWon=num2str(cWon);
+    set(handles.compWins,'String',cWon);
+elseif(h==3&&c==2)
+    gameResult='human won';
+    hWon=str2num(hWon);
+    hWon=hWon+1;
+    hWon=num2str(hWon);
+    set(handles.humanWins,'String',hWon);
+elseif(h==3&&c==3)
+    gameResult='tie';
+    tie=str2num(tie);
+    tie=tie+1;
+    tie=num2str(tie);
+    set(handles.ties,'String',tie);
+end
+set(handles.winnerText,'String',gameResult);
+showGameF(c,h,gameResult);
+end
+
+showGameF.m
+function showGameF(iComputerPlay, iHumanPlay, gameResult)
+if iHumanPlay==1
+    disp('Human chose rock');
+elseif iHumanPlay==2
+    disp('Human chose paper');
+else
+    disp('Human chose scissors');
+end
+if iComputerPlay==1
+    disp('Computer chose rock');
+elseif iHumanPlay==2
+    disp('Computer chose paper');
+else
+    disp('Computer chose scissors');
+end
+disp(gameResult);
